@@ -85,7 +85,11 @@ export const config: TemplateConfig = {
       "c_promoDetails",
       "c_heading",
       "c_fuelHeading",
-      "c_cardHeading"
+      "c_cardHeading",
+      "dm_directoryParents.name",
+      "dm_directoryParents.slug",
+      "dm_directoryParents.dm_baseEntityCount",
+      "dm_directoryParents.meta.entityType",
 
     ],
     // Defines the scope of entities that qualify for this stream.
@@ -291,7 +295,8 @@ const Location: Template<ExternalApiRenderData> = ({
     c_promoDetails,
     c_heading,
     c_fuelHeading,
-    c_cardHeading
+    c_cardHeading,
+    dm_directoryParents
   } = document;
 
   let templateData = { document: document, __meta: __meta };
@@ -459,6 +464,12 @@ const Location: Template<ExternalApiRenderData> = ({
         <AnalyticsScopeProvider name={""}>
           <PageLayout global={_site}>
 
+          <BreadCrumbs
+                name={name}
+                parents={dm_directoryParents}
+                baseUrl={relativePrefixToRoot}
+                address={{}}
+              ></BreadCrumbs>
 
             <div className="container">
               <div className='banner-text banner-dark-bg justify-center text-center'>
