@@ -19,6 +19,7 @@ import { StaticData } from "../../sites-global/staticData";
 
 
 
+
 /**
  * Required when Knowledge Graph data is used for a template.
  */
@@ -36,12 +37,13 @@ export const config: TemplateConfig = {
       "slug",
       "dm_directoryParents.name",
       "dm_directoryParents.slug",
-      "dm_directoryParents.dm_directoryChildrenCount",
+      "dm_directoryParents.dm_baseEntityCount",
       "dm_directoryParents.meta.entityType",
       "dm_directoryChildren.name",
       "dm_directoryChildren.address",
       "dm_directoryChildren.slug",
-      "dm_directoryChildren.dm_directoryChildrenCount",
+      // "dm_directoryChildren.dm_baseEntityCount",
+      "dm_directoryChildren.dm_baseEntityCount",
       "dm_directoryChildren.dm_directoryChildren.name",
       "dm_directoryChildren.dm_directoryChildren.id",
       "dm_directoryChildren.dm_directoryChildren.slug",
@@ -50,11 +52,11 @@ export const config: TemplateConfig = {
     // Defines the scope of entities that qualify for this stream.
     filter: {
       entityTypes: ["ce_region"],
-      savedFilterIds: ["dm_matalan-stores-directory_address_region"]
+      // savedFilterIds: ["dm_matalan-stores-directory_address_region"]
     },
     // The entity language profiles that documents will be generated for.
     localization: {
-      locales: ["en_GB"],
+      locales: ["en"],
       primary: false,
     },
   },
@@ -233,9 +235,9 @@ const region: Template<TemplateRenderProps> = ({
 
     if (typeof entity.dm_directoryChildren != "undefined") {
 
-      if (entity.dm_directoryChildrenCount == 1) {
+      if (entity.dm_baseEntityCount == 1) {
         entity.dm_directoryChildren.map((res: any) => {
-         //console.log(res,"res")
+         console.log(res,"res")
           let detlslug1 = "";
 
           if (!res.slug) {
@@ -261,7 +263,7 @@ const region: Template<TemplateRenderProps> = ({
           key={entity.slug}
           href={stagingBaseurl  + detlslug}
         >
-          {entity.name} ({entity.dm_directoryChildrenCount})
+          {entity.name} ({entity.dm_baseEntityCount})
         </a>
       </li>
     )
@@ -272,15 +274,15 @@ const region: Template<TemplateRenderProps> = ({
   let bannerimage = c_banner_image && c_banner_image.image.url;
   return (
     <>
-        <PageLayout global={_site}>
+        <PageLayout _site={_site} global={undefined}>
         <BreadCrumbs
             name={name}
             parents={dm_directoryParents}
             baseUrl={relativePrefixToRoot}
             address={address}
           ></BreadCrumbs>
-          {/* <div className="location-dtl">     <Banner name={c_bannerHeading?c_bannerHeading:name} c_bannerImage={bannerimage}  /></div> */}
-          
+          {/* { <div className="location-dtl">     <Banner name={c_bannerHeading?c_bannerHeading:name} c_bannerImage={bannerimage}  /></div> }
+           */}
 
           <div className="content-list">
             <div className="container">

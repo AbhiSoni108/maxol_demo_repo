@@ -1,5 +1,5 @@
 import * as React from "react";
-import "../index.css";
+//import "../index.css";
 import { GetHeadConfig, GetPath, HeadConfig, Template, TemplateConfig, TemplateProps, TemplateRenderProps } from "@yext/pages";
 import { SearchHeadlessProvider } from "@yext/search-headless-react";
 import { FilterSearch, VerticalResults, ResultsCount, AppliedFilters, ApplyFiltersButton, LocationBias, Pagination } from "@yext/search-ui-react";
@@ -199,6 +199,7 @@ const Locator: Template<TemplateRenderProps>= ({
       >
         {" "}
         <AnalyticsScopeProvider name={""}>
+          <div>
       <PageLayout global={_site}>
         <SearchHeadlessProvider
           experienceKey={AnswerExperienceConfig.experienceKey}
@@ -216,9 +217,12 @@ const Locator: Template<TemplateRenderProps>= ({
       
   
       </PageLayout>
+      </div>
       </AnalyticsScopeProvider>
       </AnalyticsProvider>
+      <div>
       <Footer _site={_site} />
+      </div>
     </>
   );
 };
