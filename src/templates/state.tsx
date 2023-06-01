@@ -52,7 +52,7 @@ export const config: TemplateConfig = {
     // Defines the scope of entities that qualify for this stream.
     filter: {
       entityTypes: ["ce_region"],
-      // savedFilterIds: ["dm_matalan-stores-directory_address_region"]
+      savedFilterIds: ["dm_stores-directory_address_region"],
     },
     // The entity language profiles that documents will be generated for.
     localization: {
@@ -71,7 +71,7 @@ export const getPath: GetPath<TemplateProps> = ({ document }) => {
     }
   });
   url += document.slug.toString();
-
+  //console.log(url, "abhb586787489")
   return url + '.html';
 };
 
@@ -237,31 +237,35 @@ const region: Template<TemplateRenderProps> = ({
 
       if (entity.dm_baseEntityCount == 1) {
         entity.dm_directoryChildren.map((res: any) => {
-         console.log(res,"res")
+          // console.log(res,"1")
+         
           let detlslug1 = "";
 
-          if (!res.slug) {
-            let slugString = res.id + "-" + res.name.toLowerCase();
+          if (res.slug) {
+            let slugString = res.id;          
+           
             let slug = slugString;
-            detlslug1 = `${slug}.html`;
+            detlslug1 = `/${slug}.html`;
+                  
           } else {
-            detlslug1 = `${res.slug.toString()}.html`;
+            detlslug1 =`/${res.slug.toString()}.html`;           
+            
           }
-
-          detlslug = detlslug1;
-
+          detlslug = detlslug1;          
         })
       } else {
-        detlslug = "gb/" + slug + "/" + entity.slug + ".html";
+        detlslug = slug + "/" + entity.slug + ".html";
+        
+      
       }
-
+      
     }
 
     return (
       <li className=" storelocation-category">
         <a
           key={entity.slug}
-          href={stagingBaseurl  + detlslug}
+          href={detlslug}
         >
           {entity.name} ({entity.dm_baseEntityCount})
         </a>

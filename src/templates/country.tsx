@@ -249,6 +249,7 @@ const country: Template<TemplateRenderProps> = ({
                 detlslug1 = `${slug}.html`;
               } else {
                 detlslug1 = `${res.slug.toString()}.html`;
+                // console.logg(detlslug1, "detailslug1")
               }
               // console.log(detlslug1,"detlslug1")
 
@@ -272,14 +273,11 @@ const country: Template<TemplateRenderProps> = ({
                       // detlslug1 = `${detl.slug.toString()}.html`;
                       // detlslug1=slug+"/"+entity.slug+"/"+res.slug+"/"+detl.slug.toString()+".html"
                       detlslug1 =
-                        slug +
-                        "/" +
-                        detlslug1 +
-                        "/" +
+                        
                         detl.slug.toString() +
                         ".html";
 
-                      //  console.log(detlslug1,"1234554")
+                       // console.logg(detlslug1,"1234554")
                     }
 
                     detlslug = detlslug1;

@@ -221,7 +221,6 @@ const City: Template<TemplateRenderProps> = ({
     c_metaTitle,
     _site,
   } = document;
-
   var address;
   // var sortedChildren = dm_directoryChildren.sort(function (a: any, b: any) {
   //   var a = a.name;
@@ -245,20 +244,18 @@ const City: Template<TemplateRenderProps> = ({
       } else {
         origin = e.address.country;
       }
-
-      let url = "";
+      let mainurl = "";
       if (!e.slug) {
         let slugString = e.name.toLowerCase();
         var slugs: any = slugString.toString();
         let slug: any = slugs.replaceAll(" ", "-");
-        // console.log('slug', slug);
         url = links + "/" + `${slug}.html`;
       } else {
-        let slugString = e.name.toLowerCase();
+        let slugString = e.id.toLowerCase();
         var slugs: any = slugString.toString();
         let slug: any = slugs.replaceAll(" ", "-");
-        url = links + "/" + `${slug}.html`;
-        // url = `/${e.name?.toString()}.html`;
+        mainurl = `/${slug}.html`;
+       // url = `/${e.name?.toString()}.html`;
       }
 
       return (
@@ -270,7 +267,7 @@ const City: Template<TemplateRenderProps> = ({
                   <h2>
                     <Link
                       className="inline-block notHighlight px-1 text-black"
-                      href={url}
+                      href={mainurl}
                       eventName={`details`}
                     >
                       {e.name}
@@ -319,7 +316,7 @@ const City: Template<TemplateRenderProps> = ({
               </div>
               <div className="icon-row content-col availability-col flex flex-row">
                 <div className="button-bx flex flex-row w-72">
-                  <Link className="btn" href={url} eventName={`storeDetails`}>
+                  <Link className="btn" href={mainurl} eventName={`storeDetails`}>
                     View Store
                   </Link>
                   <GetDirection

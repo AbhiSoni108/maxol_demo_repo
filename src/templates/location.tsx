@@ -4,12 +4,12 @@ import Cta from "../components/commons/cta";
 import Contact from "../components/locationDetail/contact";
 import ApiCall from "../Apis/ApiCall";
 import Nearby from "../components/locationDetail/Nearby";
-import { CustomFieldDebuggerReactProvider } from '@yext/custom-field-debugger';
+import { CustomFieldDebuggerReactProvider } from "@yext/custom-field-debugger";
 import { JsonLd } from "react-schemaorg";
 import Opening from "../components/commons/openClose";
 import { nearByLocation } from "../types/nearByLocation";
-import Logo from "../images/logo-header.svg"
-import offerBanner from "../images/offer-banner.jpg"
+import Logo from "../images/logo-header.svg";
+import offerBanner from "../images/offer-banner.jpg";
 import IframeMap from "../components/locationDetail/IframeMap";
 import "../index.css";
 import Header from "../components/layouts/header";
@@ -43,7 +43,14 @@ import { StaticData } from "../../sites-global/staticData";
 import MyServices from "../components/services";
 import CardDetails from "../components/carddetails";
 
-import { apikey_for_entity, baseuRL, stagingBaseurl, AnalyticsEnableDebugging, AnalyticsEnableTrackingCookie, favicon } from "../../sites-global/global";
+import {
+  apikey_for_entity,
+  baseuRL,
+  stagingBaseurl,
+  AnalyticsEnableDebugging,
+  AnalyticsEnableTrackingCookie,
+  favicon,
+} from "../../sites-global/global";
 import {
   AnalyticsProvider,
   AnalyticsScopeProvider,
@@ -90,12 +97,10 @@ export const config: TemplateConfig = {
       "dm_directoryParents.slug",
       "dm_directoryParents.dm_baseEntityCount",
       "dm_directoryParents.meta.entityType",
-
     ],
     // Defines the scope of entities that qualify for this stream.
     filter: {
-      entityTypes: ['location']
-
+      entityTypes: ["location"],
     },
     // The entity language profiles that documents will be generated for.
     localization: {
@@ -116,18 +121,19 @@ export const getPath: GetPath<TemplateProps> = ({ document }) => {
   // var name: any = document.name.toLowerCase();
   // var string: any = name.toString();;
   // let result: any = string.replaceAll(" ", "-");
-  // document.dm_directoryParents.map((result: any, i: Number) => {
+  // document.dm_directoryParents.map((result: any, i: number) => {
   //   if (i > 0) {
   //     url += result.slug + "/"
   //   }
   // })
   // if (!document.slug) {
   //   url += `${result}.html`;
+  //   console.log(url,"url")
   // } else {
   //   url += `${document.slug.toString()}.html`;
   // }
 
-  return document.id;
+  return document.id + ".html";
 };
 /**
  * Defines a list of paths which will redirect to the path created by getPath.
@@ -151,7 +157,9 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
   document,
 }): HeadConfig => {
   return {
-    title: document.c_meta_title ? document.c_meta_title : `${document.name} Store of MGM Timber`,
+    title: document.c_meta_title
+      ? document.c_meta_title
+      : `${document.name} Maxol Service Station Finder`,
     charset: "UTF-8",
     viewport: "width=device-width, initial-scale=1",
     tags: [
@@ -159,10 +167,13 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "meta",
         attributes: {
           name: "description",
-          content: `${document.c_meta_description ? document.c_meta_description : `Find the ${document.name} Timber Store in ${document.address.city}. We stock high-quality, robust products at competitive rates.`}`,
+          content: `${
+            document.c_meta_description
+              ? document.c_meta_description
+              : `Find the ${document.name} Timber Store in ${document.address.city}. We stock high-quality, robust products at competitive rates.`
+          }`,
         },
       },
-
 
       {
         type: "meta",
@@ -184,9 +195,11 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "link",
         attributes: {
           rel: "canonical",
-          href: `${document._site?.c_canonical ? document?.c_canonical : stagingBaseurl
-
-            }${document.slug ? document.slug : `${document.name.toLowerCase()}`}.html`,
+          href: `${
+            document._site?.c_canonical ? document?.c_canonical : stagingBaseurl
+          }${
+            document.slug ? document.slug : `${document.name.toLowerCase()}`
+          }.html`,
         },
       },
 
@@ -194,7 +207,11 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "meta",
         attributes: {
           property: "og:description",
-          content: `${document.c_meta_description ? document.c_meta_description : `Find the ${document.name} Timber Store in ${document.address.city}. We stock high-quality, robust products at competitive rates.`}`,
+          content: `${
+            document.c_meta_description
+              ? document.c_meta_description
+              : `Find the ${document.name} Timber Store in ${document.address.city}. We stock high-quality, robust products at competitive rates.`
+          }`,
         },
       },
       {
@@ -229,38 +246,46 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "meta",
         attributes: {
           name: "twitter:title",
-          content: document.c_meta_title ? document.c_meta_title : `${document.name} Store of MGM Timber`,
+          content: document.c_meta_title
+            ? document.c_meta_title
+            : `${document.name} Maxol Service Station`,
         },
       },
       {
         type: "meta",
         attributes: {
           name: "twitter:description",
-          content: `${document.c_meta_description ? document.c_meta_description : `Find the ${document.name} Timber Store in ${document.address.city}. We stock high-quality, robust products at competitive rates.`}`,
+          content: `${
+            document.c_meta_description
+              ? document.c_meta_description
+              : `Find the ${document.name} Timber Store in ${document.address.city}. We stock high-quality, robust products at competitive rates.`
+          }`,
         },
       },
-
     ],
-
   };
 };
 type ExternalApiData = TemplateProps & { externalApiData: nearByLocation };
 export const transformProps: TransformProps<ExternalApiData> = async (
   data: any
 ) => {
-
-  var location = `${data.document.yextDisplayCoordinate ? data.document.yextDisplayCoordinate.latitude : data.document.displayCoordinate.latitude},${data.document.yextDisplayCoordinate ? data.document.yextDisplayCoordinate.longitude : data.document.displayCoordinate.longitude}`;
+  var location = `${
+    data.document.yextDisplayCoordinate
+      ? data.document.yextDisplayCoordinate.latitude
+      : data.document.displayCoordinate.latitude
+  },${
+    data.document.yextDisplayCoordinate
+      ? data.document.yextDisplayCoordinate.longitude
+      : data.document.displayCoordinate.longitude
+  }`;
 
   const url = `${AnswerExperienceConfig.endpoints.verticalSearch}?experienceKey=${AnswerExperienceConfig.experienceKey}&api_key=${AnswerExperienceConfig.apiKey}&v=20220511&version=${AnswerExperienceConfig.experienceVersion}&locale=${AnswerExperienceConfig.locale}&location=${location}&verticalKey=${AnswerExperienceConfig.verticalKey}&limit=5&retrieveFacets=true&skipSpellCheck=false&sessionTrackingEnabled=true&source=STANDARD`;
   //console.log(url)
   const externalApiData = (await fetch(url).then((res: any) =>
     res.json()
-
   )) as nearByLocation;
   return { ...data, externalApiData };
 };
-
-
 
 type ExternalApiRenderData = TemplateRenderProps & {
   externalApiData: nearByLocation;
@@ -296,7 +321,7 @@ const Location: Template<ExternalApiRenderData> = ({
     c_heading,
     c_fuelHeading,
     c_cardHeading,
-    dm_directoryParents
+    dm_directoryParents,
   } = document;
 
   let templateData = { document: document, __meta: __meta };
@@ -350,7 +375,6 @@ const Location: Template<ExternalApiRenderData> = ({
           item: {
             "@id":
               stagingBaseurl +
-
               document.dm_directoryParents[index].slug +
               ".html",
             name: i.name,
@@ -374,7 +398,8 @@ const Location: Template<ExternalApiRenderData> = ({
           item: {
             "@id":
               stagingBaseurl +
-              url + "/" +
+              url +
+              "/" +
               document.dm_directoryParents[index].slug +
               ".html",
             name: i.name,
@@ -397,7 +422,8 @@ const Location: Template<ExternalApiRenderData> = ({
           item: {
             "@id":
               stagingBaseurl +
-              url + "/" +
+              url +
+              "/" +
               document.dm_directoryParents[index].slug +
               ".html",
             name: i.name,
@@ -414,13 +440,13 @@ const Location: Template<ExternalApiRenderData> = ({
       name: document.name,
     },
   });
-  let imageurl = photoGallery ? photoGallery.map((element: any) => {
-    return element.image.url
-  }) : null;
+  let imageurl = photoGallery
+    ? photoGallery.map((element: any) => {
+        return element.image.url;
+      })
+    : null;
   //console.log(document)
   let bannerimage = c_banner_image && c_banner_image.image.url;
-
-
 
   return (
     <>
@@ -443,7 +469,9 @@ const Location: Template<ExternalApiRenderData> = ({
           description: description,
           image: imageurl,
           telephone: mainPhone,
-          url: `${c_canonical ? c_canonical : stagingBaseurl}${slug ? slug : `${name}`}.html`
+          url: `${c_canonical ? c_canonical : stagingBaseurl}${
+            slug ? slug : `${name}`
+          }.html`,
         }}
       />
       <JsonLd<BreadcrumbList>
@@ -463,16 +491,15 @@ const Location: Template<ExternalApiRenderData> = ({
         {" "}
         <AnalyticsScopeProvider name={""}>
           <PageLayout global={_site}>
-
-          <BreadCrumbs
-                name={name}
-                parents={dm_directoryParents}
-                baseUrl={relativePrefixToRoot}
-                address={{}}
-              ></BreadCrumbs>
+            <BreadCrumbs
+              name={name}
+              parents={dm_directoryParents}
+              baseUrl={relativePrefixToRoot}
+              address={{}}
+            ></BreadCrumbs>
 
             <div className="container">
-              <div className='banner-text banner-dark-bg justify-center text-center'>
+              <div className="banner-text banner-dark-bg justify-center text-center">
                 <h1 className="">{name}</h1>
                 <div className="openClosestatus detail-page closeing-div">
                   <OpenClose timezone={timezone} hours={hours} />
@@ -480,18 +507,44 @@ const Location: Template<ExternalApiRenderData> = ({
               </div>
             </div>
             <div className="location-information">
-              <Contact address={address}
-                phone={mainPhone} latitude={yextDisplayCoordinate ? yextDisplayCoordinate.latitude : displayCoordinate?.latitude}
-                yextDisplayCoordinate={yextDisplayCoordinate} longitude={yextDisplayCoordinate ? yextDisplayCoordinate.longitude : displayCoordinate?.longitude} hours={hours} additionalHoursText={additionalHoursText} ></Contact>
-              {
-                hours ?
-                  <div className="map-sec" id="map_canvas">
-                    <CustomMap prop={yextDisplayCoordinate ? yextDisplayCoordinate : displayCoordinate} />
-                  </div> :
-                  <div className="map-sec without-hours" id="map_canvas">
-                    <CustomMap prop={yextDisplayCoordinate ? yextDisplayCoordinate : displayCoordinate} />
-                  </div>
-              }
+              <Contact
+                address={address}
+                phone={mainPhone}
+                latitude={
+                  yextDisplayCoordinate
+                    ? yextDisplayCoordinate.latitude
+                    : displayCoordinate?.latitude
+                }
+                yextDisplayCoordinate={yextDisplayCoordinate}
+                longitude={
+                  yextDisplayCoordinate
+                    ? yextDisplayCoordinate.longitude
+                    : displayCoordinate?.longitude
+                }
+                hours={hours}
+                additionalHoursText={additionalHoursText}
+              ></Contact>
+              {hours ? (
+                <div className="map-sec" id="map_canvas">
+                  <CustomMap
+                    prop={
+                      yextDisplayCoordinate
+                        ? yextDisplayCoordinate
+                        : displayCoordinate
+                    }
+                  />
+                </div>
+              ) : (
+                <div className="map-sec without-hours" id="map_canvas">
+                  <CustomMap
+                    prop={
+                      yextDisplayCoordinate
+                        ? yextDisplayCoordinate
+                        : displayCoordinate
+                    }
+                  />
+                </div>
+              )}
               {/* <div className="ImageSection">
                 <h2>{c_imagetext?c_imagetext.text:""}</h2>
                 {c_imagetext.desc}
@@ -527,13 +580,30 @@ const Location: Template<ExternalApiRenderData> = ({
             <div className="Info-container">
               <div className="Info-row l-row">
                 <div className="Info-col l-col-xs-12 l-col-sm-6-up">
-                  {c_customServices && (<MyServices c_customServices={c_customServices} c_heading={c_heading}></MyServices>)}
+                  {c_customServices && (
+                    <MyServices
+                      c_customServices={c_customServices}
+                      c_heading={c_heading}
+                    ></MyServices>
+                  )}
                   <div className="Info-subRow Info-fuelsContent">
-                    {c_availability && (<CardService c_availability={c_availability} c_fuelHeading={c_fuelHeading}></CardService>)}
-                    {c_cardDetails && (<CardDetails c_cardDetails={c_cardDetails} c_cardHeading={c_cardHeading}></CardDetails>)}
+                    {c_availability && (
+                      <CardService
+                        c_availability={c_availability}
+                        c_fuelHeading={c_fuelHeading}
+                      ></CardService>
+                    )}
+                    {c_cardDetails && (
+                      <CardDetails
+                        c_cardDetails={c_cardDetails}
+                        c_cardHeading={c_cardHeading}
+                      ></CardDetails>
+                    )}
                   </div>
                 </div>
-                {c_promoDetails && (<PromoDetails c_promoDetails={c_promoDetails}></PromoDetails>)}
+                {c_promoDetails && (
+                  <PromoDetails c_promoDetails={c_promoDetails}></PromoDetails>
+                )}
               </div>
             </div>
             <About _site={_site} />
@@ -549,15 +619,20 @@ const Location: Template<ExternalApiRenderData> = ({
             </div>
             <div className="nearby-sec">
               <div className="container">
-                <div className="sec-title"><h2 className="">{StaticData.NearStoretext}</h2></div>
+                <div className="sec-title">
+                  <h2 className="">{StaticData.NearStoretext}</h2>
+                </div>
                 <div className="nearby-sec-inner">
-                  {yextDisplayCoordinate || cityCoordinate || displayCoordinate ?
+                  {yextDisplayCoordinate ||
+                  cityCoordinate ||
+                  displayCoordinate ? (
                     <Nearby externalApiData={externalApiData} />
-                    : ''}
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             </div>
-
           </PageLayout>
         </AnalyticsScopeProvider>
       </AnalyticsProvider>
