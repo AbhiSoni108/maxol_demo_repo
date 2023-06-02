@@ -270,15 +270,11 @@ const country: Template<TemplateRenderProps> = ({
                         ".html";
                       // console.log(detlslug1,"1234554")
                     } else {
-                      // detlslug1 = `${detl.slug.toString()}.html`;
-                      // detlslug1=slug+"/"+entity.slug+"/"+res.slug+"/"+detl.slug.toString()+".html"
-                      detlslug1 =
-                        
-                        detl.slug.toString() +
-                        ".html";
-
-                       // console.logg(detlslug1,"1234554")
-                    }
+                      detlslug1 = `${detl.slug.toString()}.html`;
+                      detlslug1= slug+"/"+entity.slug+"/"+res.slug+"/"+detl.slug.toString()+".html"
+                     // detlslug1 = detl.slug.toString() + ".html";
+                      // console.log(detlslug1,"1")
+                    }  
 
                     detlslug = detlslug1;
                   })
@@ -286,8 +282,7 @@ const country: Template<TemplateRenderProps> = ({
             });
           } else {
             detlslug = slug + "/" + entity.slug + ".html";
-
-            // console.log(detlslug,"dghgdjg567124125hjgd")
+            //console.log(detlslug,"dghgdjg567124125hjgd")
           }
         }
 

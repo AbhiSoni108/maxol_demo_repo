@@ -231,36 +231,28 @@ const region: Template<TemplateRenderProps> = ({
   } = document;
   const childrenDivs = dm_directoryChildren ? dm_directoryChildren.map((entity: any) => {
     let detlslug;
-
-
     if (typeof entity.dm_directoryChildren != "undefined") {
-
       if (entity.dm_baseEntityCount == 1) {
         entity.dm_directoryChildren.map((res: any) => {
           // console.log(res,"1")
-         
           let detlslug1 = "";
-
           if (res.slug) {
-            let slugString = res.id;          
-           
+            let slugString = res.id;      
             let slug = slugString;
-            detlslug1 = `/${slug}.html`;
-                  
+            let slugs = res.address.region.replaceAll(" ", "-").toLocaleLowerCase();
+            detlslug1 = slugs + "/" + entity.slug + "/" + `${slug}.html`;
+            // console.log(detlslug1, "first")
           } else {
             detlslug1 =`/${res.slug.toString()}.html`;           
-            
+            // console.log(detlslug1, "second")
           }
           detlslug = detlslug1;          
         })
       } else {
         detlslug = slug + "/" + entity.slug + ".html";
-        
-      
+        // console.log(detlslug, "last")
       }
-      
     }
-
     return (
       <li className=" storelocation-category">
         <a

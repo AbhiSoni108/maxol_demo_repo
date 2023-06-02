@@ -59,7 +59,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
   document,
 }): HeadConfig => {
  return {
-   title:`${document.c_meta_title?document.c_meta_title:`Timber Merchants Near Me - Find MGM Timber Branch Locator Here.`}`,
+   title:`${document.c_meta_title?document.c_meta_title:`Maxol Service Station Locator.`}`,
    charset: "UTF-8",
    viewport: "width=device-width, initial-scale=1",
    tags: [
@@ -67,7 +67,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
        type: "meta",
        attributes: {
          name: "description",
-         content: `${document.c_meta_description?document.c_meta_description:`View Timber Merchants near you today at MGM Timber. We stock high-quality, robust products at competitive rates.`}`,
+         content: `${document.c_meta_description?document.c_meta_description:`View Maxol Station near you today at Maxol.`}`,
        },
      },
 
@@ -109,14 +109,14 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
        type: "meta",
        attributes: {
          property: "og:description",
-         content: `${document.c_meta_description?document.c_meta_description:`View Timber Merchants near you today at MGM Timber. We stock high-quality, robust products at competitive rates.`}`,
+         content: `${document.c_meta_description?document.c_meta_description:`View Maxol Station near you today at Maxol..`}`,
        },
      },
      {
        type: "meta",
        attributes: {
          property: "og:title",
-         content: `${document.c_meta_title?document.c_meta_title:`Timber Merchants Near Me - Find MGM Timber Branch Locator Here.`}`,
+         content: `${document.c_meta_title?document.c_meta_title:`Maxol Service Station Near Me - Find Maxol Service Station Branch Locator Here.`}`,
        },
      },
      {

@@ -228,6 +228,7 @@ const City: Template<TemplateRenderProps> = ({
   //   return a < b ? -1 : a > b ? 1 : 0;
   // });
   const links = document.slug;
+  // console.log(links, "link")
   let slugString = "";
   document.dm_directoryParents?.map((e: any) => {
     slugString += e.slug + "/";
@@ -254,7 +255,8 @@ const City: Template<TemplateRenderProps> = ({
         let slugString = e.id.toLowerCase();
         var slugs: any = slugString.toString();
         let slug: any = slugs.replaceAll(" ", "-");
-        mainurl = `/${slug}.html`;
+        mainurl = links + "/" +`${slug}.html`;
+        // console.log(mainurl, "lasturl")
        // url = `/${e.name?.toString()}.html`;
       }
 
