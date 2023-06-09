@@ -16,7 +16,8 @@ const BreadCrumbs = (props: data) => {
   var data: any = [];
   React.useEffect(() => {
     setURL(props.parents, props.baseUrl);
-  //console.log(props.parents)
+  // console.log(props.parents)
+  // console.log(props.baseUrl)
   }, [setList]);
 
   const setURL = (parents: any, baseUrl: any) => {

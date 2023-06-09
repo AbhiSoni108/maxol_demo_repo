@@ -35,7 +35,7 @@ export function VerticalResultsDisplay(props: VerticalResultsDisplayProps): JSX.
   if (results.length === 0) {
     return null;
   }
-
+ 
   const resultsClassNames = classNames({
     [cssClasses.results___loading ?? '']: isLoading
   });
@@ -63,7 +63,7 @@ interface VerticalResultsProps {
 
 export default function VerticalResults(props: VerticalResultsProps): JSX.Element | null {
 
-  const { displayAllOnNoResults = false, allowPagination = true, ...otherProps } = props;
+  const { displayAllOnNoResults = true, allowPagination = true, ...otherProps } = props;
   const verticalResults = props.locationResults || [];
   // const verticalResults = useSearchState(s => s.vertical.results) || [];
   const allResultsForVertical = useSearchState(state => state.vertical?.noResults?.allResultsForVertical.results) || [];
@@ -77,7 +77,11 @@ export default function VerticalResults(props: VerticalResultsProps): JSX.Elemen
     results = allResultsForVertical;
     resultsCount = allResultsCountForVertical;
   }
- 
+  // console.log(resultsCount, "ResultCount")
+  // console.log(results, "Result")
+  // console.log(verticalResults, "VerticalResult")
+  // console.log(allResultsForVertical, "allResult")
+  // console.log(verticalResultsCount, "verticalResultcount")
   return (
     <>
       <VerticalResultsDisplay results={results} isLoading={isLoading} {...otherProps}/>      

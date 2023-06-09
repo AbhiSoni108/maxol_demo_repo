@@ -17,7 +17,7 @@ const useFetchResults = () => {
   if(locationResults.length > 0){
     for (let i = 0; i < locationResults.length; i++) {
       const location = locationResults[i];
-      // //console.log('location',location.id);
+      // console.log('location',location.id);
       let pushStatus = true;
       if(mapLocations.length > 0){
         for (let m = 0; m < mapLocations.length; m++) {
@@ -34,7 +34,7 @@ const useFetchResults = () => {
   }else{
     for (let i = 0; i < Alternateresult.length; i++) {
       const location = Alternateresult[i];
-      // //console.log('location',location.id);
+      // console.log('location',location.id);
       let pushStatus = true;
       if(mapLocations.length > 0){
         for (let m = 0; m < mapLocations.length; m++) {
@@ -51,7 +51,7 @@ const useFetchResults = () => {
   }
     
   let mapLocationsResults = mapLocations;  
-  // //console.log('mapLocationsResults',mapLocationsResults);
+  // console.log('mapLocationsResults',mapLocationsResults);
   return mapLocationsResults;
 };
 

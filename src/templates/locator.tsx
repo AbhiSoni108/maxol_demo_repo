@@ -199,7 +199,7 @@ const Locator: Template<TemplateRenderProps>= ({
       >
         {" "}
         <AnalyticsScopeProvider name={""}>
-          <div>
+          <div className="locator-container">
       <PageLayout global={_site}>
         <SearchHeadlessProvider
           experienceKey={AnswerExperienceConfig.experienceKey}
@@ -208,7 +208,8 @@ const Locator: Template<TemplateRenderProps>= ({
           verticalKey={AnswerExperienceConfig.verticalKey}
           experienceVersion="STAGING"
           sessionTrackingEnabled={true}
-          endpoints={AnswerExperienceConfig.endpoints}    
+          endpoints={AnswerExperienceConfig.endpoints}  
+
         >
           
           <SearchLayout _site={_site}/>

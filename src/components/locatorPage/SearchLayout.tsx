@@ -27,7 +27,7 @@ import { Link } from "@mui/material";
 import { AnswerExperienceConfig } from "../../config/answersHeadlessConfig";
 
 var params1: any = { latitude: center_latitude, longitude:center_longitude }
-var mapzoom = 8;
+var mapzoom = 5;
 var centerLatitude = center_latitude;
 var centerLongitude = center_longitude;
 const SearchLayout = (props: any): JSX.Element => {
@@ -36,12 +36,13 @@ const SearchLayout = (props: any): JSX.Element => {
   type FilterHandle = React.ElementRef<typeof FilterSearch>;
   const filterRef = useRef<FilterHandle>(null);
   const locationResults = useFetchResults() || [];
+ 
   const locationinbuit=useSearchState(state => state.vertical?.results) || [];
   const alternateresult=useSearchState(state => state.vertical?.results?.length) || 0;
   const[displaymsg,setDisplaymsg]=useState(false);
   const [inputvalue, setInputValue] = React.useState('');
   // const [inputvalue, setInputValue] = React.useState('');
-  const[allowlocation,setallowLocation]=React.useState('');
+  const[allowlocation,setallowLocation]=React.useState(''); 
   const[newparam,SetNewparam]=React.useState({latitude:0,
     longitude:0});
   const [offset, setOffset] = React.useState(0);
@@ -147,14 +148,14 @@ const loading = useSearchState(s=>s.searchStatus.isLoading);
     if(searchKey[0].value!=""){
     getCoordinates(Search);
     }
-    // //console.log(locationinbuit.length,"fisttimedispaly")
+    
     if(locationinbuit.length==0){
       setDisplaymsg(true)
     }else { 
       setDisplaymsg(false);
     }
   }
-
+  // console.log(locationinbuit.length,"fisttimedispaly")
   const handleInputValue = () => {
     setInputValue('');
   }
@@ -201,7 +202,7 @@ const loading = useSearchState(s=>s.searchStatus.isLoading);
     }
     },[locationinbuit])
     useEffect(()=>{
-      //console.log("yes rerender")
+      // console.log("yes rerender")
       locationResults.map((result:any, index:number) => {
         const resultelement = document.querySelectorAll(
           `.result-list-inner-${index + 1}`
@@ -217,29 +218,32 @@ const loading = useSearchState(s=>s.searchStatus.isLoading);
   if (firstTimeRunners) {
     firstTimeRunners = false;
     // searchActions.resetFacets();
-    FirstLoad();
+    //FirstLoad();
   }
  },[])
 
   return (
     <>
-
       {/* {loader} */}
       <div className="breadcrumb">
         <div className="container-custom">
           <ul>
             <li>
-              <a href="#" className="home"> Home</a>
+              <a href="#" className="home">
+                {" "}
+                Home
+              </a>
             </li>
             <li>{StaticData.locator_breadcrumb}</li>
           </ul>
-
         </div>
       </div>
       <div className="locator-main">
-        {allowlocation.length > 0 ?
+        {allowlocation.length > 0 ? (
           <div className="for-allow">{allowlocation}</div>
-          : ''}
+        ) : (
+          ""
+        )}
         <div className="search-bx">
           <div className="location-with-filter">
             <h1 className="">{StaticData.FindLocationtext}</h1>
@@ -247,13 +251,13 @@ const loading = useSearchState(s=>s.searchStatus.isLoading);
 
           <div className="search-field">
             <FilterSearch
-             ref={filterRef}
-             displaymsg={displaymsg}
-             setDisplaymsg={setDisplaymsg}
+              ref={filterRef}
+              displaymsg={displaymsg}
+              setDisplaymsg={setDisplaymsg}
               customCssClasses={{
                 filterSearchContainer: "m-2 w-full",
                 inputElement: "FilterSearchInput pr-[90px]",
-                optionsContainer: "options"
+                optionsContainer: "options",
               }}
               inputvalue={inputvalue}
               setSearchInputValue={setInputValue}
@@ -262,66 +266,87 @@ const loading = useSearchState(s=>s.searchStatus.isLoading);
               searchFields={[
                 // {
                 //   entityType: "location",
-                //   fieldApiName: "address.line1",
+                //   fieldApiName: "address.line2",
 
                 // },
                 {
                   entityType: "location",
                   fieldApiName: "address.city",
-                  },
-                  {
-                    entityType: "location",
-                    fieldApiName: "address.region",
-                },                
-                  {
-                    entityType: "location",
-                    fieldApiName: "address.postalCode",
-
-                  },
-                  {
-                    entityType: "location",
-                    fieldApiName: "name",
-
-                  },
-                  // {
-                  //   entityType: "location",
-                  //   fieldApiName: "address.countryCode",
-
-                  // },
-                ]}
-                
-                handleInputValue={handleInputValue}  
-                handleSetUserShareLocation={handleSetUserShareLocation}
+                },
+                // {
+                //   entityType: "location",
+                //   fieldApiName: "address.region",
+                // },
+                {
+                  entityType: "location",
+                  fieldApiName: "address.postalCode",
+                },
+                {
+                  entityType: "location",
+                  fieldApiName: "name",
+                },
+                // {
+                //   entityType: "location",
+                //   fieldApiName: "address.line1",
+                // },
+              ]}
+              handleInputValue={handleInputValue}
+              handleSetUserShareLocation={handleSetUserShareLocation}
             />
 
             <button
               className="search-btn"
               aria-label="Search bar icon"
-              id="search-location-button" onClick={Findinput}>
-                <span dangerouslySetInnerHTML={{ __html: search_icn }} />
-                </button>
+              id="search-location-button"
+              onClick={Findinput}
+            >
+              <span dangerouslySetInnerHTML={{ __html: search_icn }} />
+            </button>
           </div>
 
-<div className="fliter-sec">
-          <button className="useMyLocation" title="Search using your current location!" id="useLocation" onClick={onClick}>
-              <span className="icon" dangerouslySetInnerHTML={{ __html: UseMylocationsvg }} />
+          <div className="fliter-sec">
+            <button
+              className="useMyLocation"
+              title="Search using your current location!"
+              id="useLocation"
+              onClick={onClick}
+            >
+              <span
+                className="icon"
+                dangerouslySetInnerHTML={{ __html: UseMylocationsvg }}
+              />
 
-             <span className="underline hover:no-underline"> {StaticData.Usemylocation}</span>
+              <span className="underline hover:no-underline">
+                {" "}
+                {StaticData.Usemylocation}
+              </span>
             </button>
 
-          <ResultsCount
-            customCssClasses={{ container: "mx-2 my-0 text-dark-gray" }}
-          />
-</div>
+            <ResultsCount
+              customCssClasses={{ container: "mx-2 my-0 text-dark-gray" }}
+            />
+          </div>
         </div>
         <div className="mobile-btns">
           <div className="button-bx">
-
-            <a className="btn listBtn" href="javascript:void(0);" onClick={() => {
-              document.body.classList.remove('mapView')
-
-            }}> List View</a>
-            <a className="btn mapBtn" href="javascript:void(0);" onClick={addClass}> Map View</a>
+            <a
+              className="btn listBtn"
+              href="javascript:void(0);"
+              onClick={() => {
+                document.body.classList.remove("mapView");
+              }}
+            >
+              {" "}
+              List View
+            </a>
+            <a
+              className="btn mapBtn"
+              href="javascript:void(0);"
+              onClick={addClass}
+            >
+              {" "}
+              Map View
+            </a>
           </div>
         </div>
         <div className=" map-section ">
@@ -336,39 +361,45 @@ const loading = useSearchState(s=>s.searchStatus.isLoading);
         </div>
 
         <div className="left-listing">
-
-          <PerfectScrollbar >
-
+          <PerfectScrollbar>
             <div>
-             
-                <VerticalResults
-                  displayAllOnNoResults={false}
-                  CardComponent={LocationCard}
-                  locationResults={locationinbuit}
-                  customCssClasses={{
-                    container:
-                      "result-list flex flex-col scroll-smooth  overflow-auto",
+              <VerticalResults
+                displayAllOnNoResults={true}
+                CardComponent={LocationCard}
+                locationResults={locationResults}
+                customCssClasses={{
+                  container:
+                    "result-list flex flex-col scroll-smooth  overflow-auto",
+                }}
+                // CardComponent={LocationCard}
+              />
 
-                  }}
-                  // CardComponent={LocationCard}
+              {locationinbuit && locationinbuit.length <= 5 ? (
+                <div className="browse-dir">
+                  <a className="underline " href="/gb.html">
+                    Use the search above or{" "}
+                    <span className="font-second-main-font">
+                      {" "}
+                      browse our directory
+                    </span>
+                  </a>
+                </div>
+              ) : (
+                ""
+              )}
+              <div className="button-bx">
+                <ViewMore
+                  className={
+                    " btn notHighlight lg:!w-[132%] !mb-2 button view-more"
+                  }
+                  idName={"view-more-button"}
+                  buttonLabel={"View More"}
                 />
-             
-      
-              {locationinbuit && locationinbuit.length <= 0 ?
-               <div className="browse-dir">
-               <a className="underline " href='/gb.html'>Use the search above or <span className="font-second-main-font"> browse our directory</span></a> 
-               </div>:''}
-                <div className="button-bx">
-               <ViewMore  className={" btn notHighlight lg:!w-[132%] !mb-2 button view-more"} idName={"view-more-button"} buttonLabel={"View More"} />
-               </div>
+              </div>
             </div>
           </PerfectScrollbar>
         </div>
-
-
       </div>
-
-
     </>
   );
 };

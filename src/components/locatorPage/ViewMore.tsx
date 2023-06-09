@@ -11,14 +11,21 @@ export default function ViewMore(props: viewMoreProps): JSX.Element | null {
   const { className, idName, buttonLabel } = props;  
   const searchAction = useSearchActions();
   const offset = useSearchState(state => state.vertical.offset) || 0;
-  const limit = useSearchState(state => state.vertical.limit) || 10;
+  const limit = useSearchState(state => state.vertical.limit) || 0;
   const numResults = useSearchState(state => state.vertical.resultsCount) || 0;
- 
+
+  // console.log(offset, "Offset")
+  // console.log(limit, "limit")
+  // console.log(numResults, "numResults")
+
+
   const executeSearchWithNewOffset = (newOffset: number) => {
     searchAction.setOffset(newOffset);
     searchAction.executeVerticalQuery();
+    // console.log(newOffset, "newOffset")
   }
-
+  
+  // console.log(numResults, "numResults")
   const maxPageCount = Math.ceil(numResults / limit);
   if (maxPageCount <= 1) {
     return null;
@@ -30,7 +37,7 @@ export default function ViewMore(props: viewMoreProps): JSX.Element | null {
     <div>
       {pageNumber !== maxPageCount ?<div className="buttons mt-2.5 justify-center !pl-0">
             <div className="ctaBtn">              
-              <button className={className} id={idName} onClick={() => executeSearchWithNewOffset(offset + limit)}>{buttonLabel}</button>
+              <button className={className} id={idName} onClick={() => executeSearchWithNewOffset(limit + offset)}>{buttonLabel}</button>
             </div>
           </div>:""}
     </div>

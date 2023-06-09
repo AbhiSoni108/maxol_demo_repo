@@ -4,6 +4,7 @@ import { Location } from "../../types/search/locations";
 import GetDirection from "../commons/GetDirection";
 import redmapimage from "../../images/red-map.svg";
 import timesvg from "../../images/watch-icn.svg";
+import Phonesvg from "../../images/phone.svg";
 import Address from "../commons/Address";
 import OpenClose from "../commons/openClose";
 import { StaticData } from "../../../sites-global/staticData";
@@ -106,6 +107,33 @@ const LocationCard: CardComponent<Location> = ({ result }) => {
 
             <div className="icon-row content-col address-with-availablity notHighlight">
               <Address address={address} />
+              {result.rawData.mainPhone ? (
+                <div className="icon-row">
+                  <div className="icon">
+                    {" "}
+                    <img
+                      className=" "
+                      src={Phonesvg}
+                      width="20"
+                      height="20"
+                      alt=""
+                    />
+                  </div>
+                  <div className="content-col">
+                    {/* <h6>Telephone</h6> */}
+                    <a
+                      id="address"
+                      className="notHighlight"
+                      href={`tel:${result.rawData.mainPhone}`}
+                    >
+                      {result.rawData.mainPhone}
+                    </a>
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
+
               {result.rawData.hours ? (
                 <>
                   <div className="mt-2">
@@ -211,5 +239,6 @@ const LocationCard: CardComponent<Location> = ({ result }) => {
     </div>
   );
 };
+``;
 
 export default LocationCard;

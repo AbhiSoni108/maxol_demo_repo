@@ -118,21 +118,23 @@ function UnwrappedGoogleMaps({
   };
 
   const refLocationResults = useRef({});
-
-  const locationResults = useSearchState(state => state.vertical?.results) || [];
+  const locationResults = useFetchResults() || []; 
+  // const locationResults = useSearchState(state => state.vertical?.results) || [];
+  
   refLocationResults.current = locationResults;
-
+  
   locationResults.length > 0
     ? locationResults.map((result: any, i: number) => {
         if (i == 0 && result) {
           center = {
             lat: result.rawData.yextDisplayCoordinate
-              ? result.rawData.yextDisplayCoordinate.latitude
+              ? result.rawData.yextDisplayCoordinate.latitude 
               : result.rawData.displayCoordinate.latitude,
             lng: result.rawData.yextDisplayCoordinate
               ? result.rawData.yextDisplayCoordinate.longitude
               : result.rawData.displayCoordinate.longitude,
           };
+          // console.log(result.rawData.yextDisplayCoordinate," Resullt rawdata")
         }
       })
     : (center = {
@@ -194,7 +196,7 @@ function UnwrappedGoogleMaps({
   const markers1 = useRef<google.maps.Marker[]>([]);
   const usermarker = useRef<google.maps.Marker[]>([]);
   const infoWindow = useRef(new google.maps.InfoWindow());
-
+  
   deleteMarkers();
   userdeleteMarkers();
   // function getCoordinates(address:String){
@@ -212,6 +214,7 @@ function UnwrappedGoogleMaps({
     icon: UserMarker
   });
   usermarker.current.push(Usermarker1);
+  
 
   try {
     if (mapMarkerClusterer) {
@@ -240,7 +243,7 @@ function UnwrappedGoogleMaps({
 
   if (markers1.current.length > 0) {
     const markers = markers1.current;
-
+    // console.log(markers, "marker")
     mapMarkerClusterer = new MarkerClusterer({
       map,
       markers,
@@ -287,12 +290,13 @@ function UnwrappedGoogleMaps({
           for (let i = 0; i < locationResults.length; i++) {
             centerlast = {
               lat: locationResults[i].rawData.yextDisplayCoordinate
-                ? locationResults[i].rawData.yextDisplayCoordinate.latitude
+                ? locationResults[i].rawData.yextDisplayCoordinate.latitude 
                 : locationResults[i].rawData.displayCoordinate.latitude,
               lng: locationResults[i].rawData.yextDisplayCoordinate
                 ? locationResults[i].rawData.yextDisplayCoordinate.longitude
                 : locationResults[i].rawData.displayCoordinate.longitude,
             };
+            // console.log(locationResults[i].rawData.yextDisplayCoordinate,"Location cordinate")
             // bounds.extend(position);
             bounds.extend(centerlast);
             bounds.extend(position);
@@ -436,7 +440,7 @@ function UnwrappedGoogleMaps({
               markerPins.current[index - 1].setIcon(marker_icon);
             }
             $(".result").removeClass("fixed-hover");
-            // //console.log('refLocationResults', refLocationResults);
+            console.log('refLocationResults', refLocationResults);
             refLocationResults.current.map((result, i) => {
               if (i == index) {
                 setHover(false);
@@ -518,16 +522,16 @@ function UnwrappedGoogleMaps({
               ""
             )}
           </div>
-          {/* {result.rawData.mainPhone?
-    <div className="icon-row">
-      <div className="icon"> <img className=" " src={Phonesvg} width="20" height="20" alt="" />
-      </div>
+          {result.rawData.mainPhone?
+    // <div className="icon-row">
+    //   {/* <div className="icon"> <img className=" " src={Phonesvg} width="20" height="20" alt="" />
+    //   </div> */}
       <div className="content-col">
-        <h6>Telephone</h6>
+        {/* <h6>Telephone</h6> */}
         <a id="address" className="notHighlight" href={`tel:${result.rawData.mainPhone}`}>
           {result.rawData.mainPhone}</a>
-      </div>
-    </div>:''} */}
+      {/* </div> */}
+    </div>:''}
 
           {result.rawData.hours && result.rawData.hours.reopenDate ? (
             ""

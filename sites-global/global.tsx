@@ -14,7 +14,7 @@ export const conversionDetailsDirection = {
   cid: "",
   cv: "1",
 };
-
+// console.log(conversionDetailsDirection, "c_details")
 export const conversionDetailsPhone = {
   cid: "",
   cv: "2",

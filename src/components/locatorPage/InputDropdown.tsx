@@ -364,7 +364,7 @@ export default function InputDropdown({
     >
       <div className={cssClasses?.inputContainer}>
         <div className={cssClasses.logoContainer}>{renderLogo()}</div>
-        <input
+        <input style={{backgroundColor:"white"}}
           className={cssClasses.inputElement}
           placeholder={placeholder}
           onChange={(evt) => {
